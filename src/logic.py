@@ -17,10 +17,10 @@ def get_info() -> dict:
     """
     return {
         "apiversion": "1",
-        "author": "",  # TODO: Your Battlesnake Username
-        "color": "#888888",  # TODO: Personalize
-        "head": "default",  # TODO: Personalize
-        "tail": "default",  # TODO: Personalize
+        "author": "mattcurts",  # TODO: Your Battlesnake Username
+        "color": "#885588",  # TODO: Personalize
+        "head": "silly",  # TODO: Personalize
+        "tail": "bolt",  # TODO: Personalize
     }
 
 def choose_move(data: dict) -> str:
