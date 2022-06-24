@@ -14,6 +14,119 @@ import unittest
 
 import logic
 
+class AvoidSelfTest(unittest.TestCase):
+    def setUp(self) -> None:
+        self.possible_moves =["up", "down", "left", "right"]
+
+    def test_avoid_neck_all(self):
+        # Arrange
+        test_body = [{"x": 5, "y": 5}, {"x": 5, "y": 5}, {"x": 5, "y": 5}]
+        # Act
+        result_moves = logic._avoid_self(test_body, self.possible_moves)
+        # Assert
+        self.assertEqual(len(result_moves), 4)
+        self.assertEqual(self.possible_moves, result_moves)
+
+    def test_avoid_neck_left(self):
+        # Arrange
+        test_body = [{"x": 5, "y": 5}, {"x": 4, "y": 5}, {"x": 3, "y": 5}]
+        expected = ["up", "down", "right"]
+
+        # Act
+        result_moves = logic._avoid_self(test_body, self.possible_moves)
+
+        # Assert
+        self.assertEqual(len(result_moves), 3)
+        self.assertEqual(expected, result_moves)
+
+    def test_avoid_neck_right(self):
+        # Arrange
+        test_body = [{"x": 5, "y": 5}, {"x": 6, "y": 5}, {"x": 7, "y": 5}]
+        expected = ["up", "down", "left"]
+
+        # Act
+        result_moves = logic._avoid_self(test_body, self.possible_moves)
+
+        # Assert
+        self.assertEqual(len(result_moves), 3)
+        self.assertEqual(expected, result_moves)
+
+    def test_avoid_neck_up(self):
+        # Arrange
+        test_body = [{"x": 5, "y": 5}, {"x": 5, "y": 6}, {"x": 5, "y": 7}]
+        expected = ["down", "left", "right"]
+
+        # Act
+        result_moves = logic._avoid_self(test_body, self.possible_moves)
+
+        # Assert
+        self.assertEqual(len(result_moves), 3)
+        self.assertEqual(expected, result_moves)
+
+    def test_avoid_neck_down(self):
+        # Arrange
+        test_body = [{"x": 5, "y": 5}, {"x": 5, "y": 4}, {"x": 5, "y": 3}]
+        expected = ["up", "left", "right"]
+
+        # Act
+        result_moves = logic._avoid_self(test_body, self.possible_moves)
+
+        # Assert
+        self.assertEqual(len(result_moves), 3)
+        self.assertEqual(expected, result_moves)
+
+    def test_tail_chase_two_sides(self):
+        # Arrange
+        test_body = [{"x": 5, "y": 5}, {"x": 5, "y": 4}, {"x": 4, "y": 4},{"x": 4, "y": 5}]
+        expected = ["up","left", "right"]
+
+        # Act
+        result_moves = logic._avoid_self(test_body, self.possible_moves)
+
+        # Assert
+        self.assertEqual(len(result_moves), 3)
+        self.assertEqual(expected, result_moves)
+
+    def test_body_two_sides(self):
+        # Arrange
+        test_body = [{"x": 5, "y": 5}, {"x": 5, "y": 4},
+        {"x": 4, "y": 4},{"x": 4, "y": 5},{"x": 4, "y": 6}]
+        expected = ["up","right"]
+
+        # Act
+        result_moves = logic._avoid_self(test_body, self.possible_moves)
+
+        # Assert
+        self.assertEqual(len(result_moves), 2)
+        self.assertEqual(expected, result_moves)
+
+    def test_tail_chase_three_sides(self):
+        # Arrange
+        test_body = [{"x": 5, "y": 5}, {"x": 5, "y": 4},
+        {"x": 4, "y": 4},{"x": 4, "y": 5},{"x": 4, "y": 6},{"x": 5, "y": 6}]
+        expected = ["up", "right"]
+
+        # Act
+        result_moves = logic._avoid_self(test_body, self.possible_moves)
+
+        # Assert
+        self.assertEqual(len(result_moves), 2)
+        self.assertEqual(expected, result_moves)
+
+    def test_body_three_sides(self):
+        # Arrange
+        test_body = [{"x": 5, "y": 5}, {"x": 5, "y": 4},
+        {"x": 4, "y": 4},{"x": 4, "y": 5},{"x": 4, "y": 6},{"x": 5, "y": 6},{"x": 6, "y": 6}]
+        expected = ["right"]
+
+        # Act
+        result_moves = logic._avoid_self(test_body, self.possible_moves)
+
+        # Assert
+        self.assertEqual(len(result_moves), 1)
+        self.assertEqual(expected, result_moves)
+
+
 
 class AvoidHazardsTest(unittest.TestCase):
     @classmethod
@@ -208,7 +321,7 @@ class AvoidHazardsTest(unittest.TestCase):
                 {"x": 18, "y": 0}]
         }
         
-    def test_hazards_left(self):
+    def test_hazards_left(self)-> None:
         #Arrange
         test_head =  {"x": 1, "y": 1}
         possible_moves = ["up", "down", "left", "right"]
@@ -219,7 +332,7 @@ class AvoidHazardsTest(unittest.TestCase):
         self.assertEqual(len(result_moves), 3)
         self.assertEqual(expected, result_moves)
 
-    def test_hazards_right(self):
+    def test_hazards_right(self)-> None:
         #Arrange
         test_head =  {"x": 17, "y": 1}
         possible_moves = ["up", "down", "left", "right"]
@@ -230,7 +343,7 @@ class AvoidHazardsTest(unittest.TestCase):
         self.assertEqual(len(result_moves), 3)
         self.assertEqual(expected, result_moves)
 
-    def test_hazards_up(self):
+    def test_hazards_up(self)-> None:
         #Arrange
         test_head =  {"x": 4, "y": 19}
         possible_moves = ["up", "down", "left", "right"]
@@ -241,7 +354,7 @@ class AvoidHazardsTest(unittest.TestCase):
         self.assertEqual(len(result_moves), 3)
         self.assertEqual(expected, result_moves)
 
-    def test_hazards_down(self):
+    def test_hazards_down(self)-> None:
 
         #Arrange
         test_head =  {"x": 8, "y": 1}
@@ -253,7 +366,7 @@ class AvoidHazardsTest(unittest.TestCase):
         self.assertEqual(len(result_moves), 3)
         self.assertEqual(expected, result_moves)
 
-    def test_hazards_tunnel(self):
+    def test_hazards_tunnel(self)-> None:
         #Arrange
         test_head =  {"x": 2, "y": 11}
         possible_moves = ["up", "down", "left", "right"]
@@ -264,7 +377,7 @@ class AvoidHazardsTest(unittest.TestCase):
         self.assertEqual(len(result_moves), 2)
         self.assertEqual(expected, result_moves)
 
-    def test_hazards_corner(self):
+    def test_hazards_corner(self)->None:
         #Arrange
         test_head =  {"x": 1, "y": 3}
         possible_moves = ["up", "down", "left", "right"]
@@ -274,73 +387,6 @@ class AvoidHazardsTest(unittest.TestCase):
         #Assert
         self.assertEqual(len(result_moves), 2)
         self.assertEqual(expected, result_moves)
-
-
-class AvoidNeckTest(unittest.TestCase):
-    def test_avoid_neck_all(self):
-        # Arrange
-        test_body = [{"x": 5, "y": 5}, {"x": 5, "y": 5}, {"x": 5, "y": 5}]
-        possible_moves = ["up", "down", "left", "right"]
-
-        # Act
-        result_moves = logic._avoid_my_neck(test_body, possible_moves)
-
-        # Assert
-        self.assertEqual(len(result_moves), 4)
-        self.assertEqual(possible_moves, result_moves)
-
-    def test_avoid_neck_left(self):
-        # Arrange
-        test_body = [{"x": 5, "y": 5}, {"x": 4, "y": 5}, {"x": 3, "y": 5}]
-        possible_moves = ["up", "down", "left", "right"]
-        expected = ["up", "down", "right"]
-
-        # Act
-        result_moves = logic._avoid_my_neck(test_body, possible_moves)
-
-        # Assert
-        self.assertEqual(len(result_moves), 3)
-        self.assertEqual(expected, result_moves)
-
-    def test_avoid_neck_right(self):
-        # Arrange
-        test_body = [{"x": 5, "y": 5}, {"x": 6, "y": 5}, {"x": 7, "y": 5}]
-        possible_moves = ["up", "down", "left", "right"]
-        expected = ["up", "down", "left"]
-
-        # Act
-        result_moves = logic._avoid_my_neck(test_body, possible_moves)
-
-        # Assert
-        self.assertEqual(len(result_moves), 3)
-        self.assertEqual(expected, result_moves)
-
-    def test_avoid_neck_up(self):
-        # Arrange
-        test_body = [{"x": 5, "y": 5}, {"x": 5, "y": 6}, {"x": 5, "y": 7}]
-        possible_moves = ["up", "down", "left", "right"]
-        expected = ["down", "left", "right"]
-
-        # Act
-        result_moves = logic._avoid_my_neck(test_body, possible_moves)
-
-        # Assert
-        self.assertEqual(len(result_moves), 3)
-        self.assertEqual(expected, result_moves)
-
-    def test_avoid_neck_down(self):
-        # Arrange
-        test_body = [{"x": 5, "y": 5}, {"x": 5, "y": 4}, {"x": 5, "y": 3}]
-        possible_moves = ["up", "down", "left", "right"]
-        expected = ["up", "left", "right"]
-
-        # Act
-        result_moves = logic._avoid_my_neck(test_body, possible_moves)
-
-        # Assert
-        self.assertEqual(len(result_moves), 3)
-        self.assertEqual(expected, result_moves)
-
 
 if __name__ == "__main__":
     unittest.main()
