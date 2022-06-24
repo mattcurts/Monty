@@ -52,11 +52,9 @@ def choose_move(data: dict) -> str:
     possible_moves = avoid_hazards(my_head, board, possible_moves)
     #possible_moves = _avoid_walls(my_head, possible_moves, board_height, board_width)
 
-    possible_moves = _avoid_my_neck(my_body, possible_moves)
     possible_moves = _avoid_self(my_body, possible_moves)
 
-    possible_moves = _avoid_others(my_head, possible_moves, snakes, my_id)
-    possible_moves = avoid_hazards(my_head, board, possible_moves)
+    possible_moves = _avoid_others(my_snake, possible_moves, snakes)
     possible_moves = try_direction(possible_moves, my_body, board, my_id, length)
 
     # TODO: Step 4 - Find food.
@@ -152,11 +150,9 @@ def avoid_self_trap(board, x, y, my_size, my_body, my_id, length):
     queue = []
     counted = [{"x": -1, "y": -1}]
     queue.append((x, y))
-    # counted.append({"x":x,"y":y})
 
     while queue:
         x, y = queue.pop()
-        # print(x,y)
         if (
             {"x": x, "y": y} in my_body
             or {"x": x, "y": y} in counted
@@ -165,14 +161,10 @@ def avoid_self_trap(board, x, y, my_size, my_body, my_id, length):
         ):
             continue
         else:
-            # print("added")
+
             counted.append({"x": x, "y": y})
             free_spaces = free_spaces + 1
             if free_spaces > (length):
-                print("CHECK PASSED")
-                #   print(counted)
-                print(free_spaces)
-                print(my_size)
                 return True
             if x > 0:
                 queue.append((x - 1, y))
@@ -210,36 +202,28 @@ def avoid_hazards(head, board, possible_moves):
     return possible_moves
 
 
-def _avoid_others(head, possible_moves, snakes, my_id):
+def _avoid_others(my_snake, possible_moves, snakes):
+    my_id = my_snake['id']
+    body = my_snake['body']
+    head = body[0]
     for snake in snakes:
         body = snake["body"]
         if snake["id"] != my_id:
-            if {"x": head["x"], "y": head["y"] + 1} in body:
-                try:
-                    possible_moves.remove("up")
-                except:
-                    pass
-            if {"x": head["x"], "y": head["y"] - 1} in body:
-
-                try:
-                    possible_moves.remove("down")
-                except:
-                    pass
-            if {"x": head["x"] + 1, "y": head["y"]} in body:
-
-                try:
-                    possible_moves.remove("right")
-                except:
-                    pass
-            if {"x": head["x"] - 1, "y": head["y"]} in body:
-
-                try:
-                    possible_moves.remove("left")
-                except:
-                    pass
-
+            possible_moves = head_check(possible_moves,head["x"],head["y"] + 1,body,"up")
+            possible_moves = head_check(possible_moves,head["x"],head["y"] - 1,body,"down")
+            possible_moves = head_check(possible_moves,head["x"] + 1,head["y"],body,"right")
+            possible_moves = head_check(possible_moves,head["x"] - 11,head["y"],body,"left")
+         
+           
     return possible_moves
 
+def head_check(possible_moves,x,y,body,direction):
+    if {"x": x, "y": y} in body:
+                try:
+                    possible_moves.remove(direction)
+                except:
+                    pass
+    return possible_moves
 
 def _avoid_self(my_body, possible_moves):
     head = my_body[0]
