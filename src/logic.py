@@ -1,4 +1,5 @@
 import random
+from turtle import up
 from typing import List, Dict
 
 """
@@ -88,7 +89,6 @@ def move_fail(my_body, my_head, snakes, board, my_id, length):
     board_width = board["width"]
     possible_moves = ["up", "down", "left", "right"]
     possible_moves = _avoid_walls(my_head, possible_moves, board_height, board_width)
-    possible_moves = _avoid_my_neck(my_body, possible_moves)
     possible_moves = _avoid_self(my_body, possible_moves)
     possible_moves = _avoid_others(my_head, possible_moves, snakes, my_id)
     possible_moves = avoid_hazards(my_head, board, possible_moves)
@@ -129,7 +129,6 @@ def try_direction(possible_moves, my_body, board, my_id, length):
 
 
 def avoid_self_trap(board, x, y, my_size, my_body, my_id, length):
-    # snakes = board["snakes"]
     hazards = board["hazards"]
     height = board["height"]
     width = board["width"]
@@ -191,16 +190,11 @@ def avoid_self_trap(board, x, y, my_size, my_body, my_id, length):
 
 def avoid_hazards(head, board, possible_moves):
     hazards = board["hazards"]
-    if {"x": head["x"], "y": head["y"] + 1} in hazards:
-            possible_moves.remove("up")
-    if {"x": head["x"], "y": head["y"] - 1} in hazards:
-            possible_moves.remove("down")
-    if {"x": head["x"] + 1, "y": head["y"]} in hazards:
-            possible_moves.remove("right")
-    if {"x": head["x"] - 1, "y": head["y"]} in hazards:
-            possible_moves.remove("left")
+    possible_moves= head_check(possible_moves,head["x"],head["y"] + 1,hazards,"up")
+    possible_moves= head_check(possible_moves,head["x"],head["y"] - 1,hazards,"down")
+    possible_moves= head_check(possible_moves,head["x"] + 1,head["y"],hazards,"right")
+    possible_moves= head_check(possible_moves,head["x"] - 1,head["y"] ,hazards,"left")
     return possible_moves
-
 
 def _avoid_others(my_snake, possible_moves, snakes):
     my_id = my_snake['id']
@@ -208,45 +202,38 @@ def _avoid_others(my_snake, possible_moves, snakes):
     head = body[0]
     for snake in snakes:
         body = snake["body"]
+        body = body[:-1]
         if snake["id"] != my_id:
             possible_moves = head_check(possible_moves,head["x"],head["y"] + 1,body,"up")
             possible_moves = head_check(possible_moves,head["x"],head["y"] - 1,body,"down")
             possible_moves = head_check(possible_moves,head["x"] + 1,head["y"],body,"right")
-            possible_moves = head_check(possible_moves,head["x"] - 11,head["y"],body,"left")
+            possible_moves = head_check(possible_moves,head["x"] - 1,head["y"],body,"left")
          
            
     return possible_moves
 
 def head_check(possible_moves,x,y,body,direction):
     if {"x": x, "y": y} in body:
-                try:
-                    possible_moves.remove(direction)
-                except:
-                    pass
+        try:
+            possible_moves.remove(direction)
+        except:
+            pass
     return possible_moves
 
 def _avoid_self(my_body, possible_moves):
     head = my_body[0]
     my_body = my_body[:-1]
     if "up" in possible_moves:
-        if {"x": head["x"], "y": head["y"] + 1} in my_body:
-            possible_moves.remove("up")
+        possible_moves = head_check(possible_moves,head["x"],head["y"] + 1,my_body,"up")
     if "down" in possible_moves:
-        if {"x": head["x"], "y": head["y"] - 1} in my_body:
-            possible_moves.remove("down")
+        possible_moves = head_check(possible_moves,head["x"],head["y"] - 1,my_body,"down")
     if "right" in possible_moves:
-        if {"x": head["x"] + 1, "y": head["y"]} in my_body:
-            possible_moves.remove("right")
+        possible_moves = head_check(possible_moves,head["x"] + 1,head["y"],my_body,"right")
     if "left" in possible_moves:
-        if {"x": head["x"] - 1, "y": head["y"]} in my_body:
-            possible_moves.remove("left")
-
+        possible_moves = head_check(possible_moves,head["x"] - 1,head["y"],my_body,"left")
     return possible_moves
 
-
-def _avoid_walls(
-    my_head: dict, possible_moves: List[str], height: int, width: int
-) -> List[str]:
+def _avoid_walls(my_head: dict, possible_moves: List[str], height: int, width: int) -> List[str]:
     """ "
      my_body: List of dictionaries of x/y coordinates for every segment of a Battlesnake.
             e.g. [{"x": 0, "y": 0}, {"x": 1, "y": 0}, {"x": 2, "y": 0}]

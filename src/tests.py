@@ -147,8 +147,6 @@ class AvoidSelfTrap(unittest.TestCase):
 
 
 class AvoidOthersTest(unittest.TestCase):
-    #tail chase others
-    # head hunt only if bigger
     def setUp(self) -> None:
         self.possible_moves =["up", "down", "left", "right"]
     
@@ -156,16 +154,14 @@ class AvoidOthersTest(unittest.TestCase):
         # Arrange 
         test_my_snake = {'id': 'gs_pPXPVBSS3bPWcfDX9vchP49b',
         'body': [{'x': 6, 'y': 1},{'x': 7, 'y': 1}, {'x': 8, 'y': 1},
-         {'x': 9, 'y': 1}],'length': 14,}
+         {'x': 9, 'y': 1}]}
 
         test_snakes =[
         {'id': 'gs_pPXPVBSS3bPWcfDX9vchP49b',
-        'body': [{'x': 6, 'y': 1},{'x': 7, 'y': 1}, {'x': 8, 'y': 1}],
-         'length': 3,},
+        'body': [{'x': 6, 'y': 1},{'x': 7, 'y': 1}, {'x': 8, 'y': 1}],},
          
          {'id': 'gs_XXcDWBMbV8wgS3BwwJ9hxQC4',
-         'body': [{'x': 5, 'y': 2}, {'x': 5, 'y': 1}, {'x': 5, 'y': 0},{'x': 4, 'y': 0}],
-         'length': 4}]
+         'body': [{'x': 5, 'y': 2}, {'x': 5, 'y': 1}, {'x': 5, 'y': 0},{'x': 4, 'y': 0}]}]
 
         expected = ["up","down","right"]
         # Act
@@ -178,16 +174,14 @@ class AvoidOthersTest(unittest.TestCase):
         # Arrange 
         test_my_snake = {'id': 'gs_pPXPVBSS3bPWcfDX9vchP49b',
         'body': [{'x': 6, 'y': 1},{'x': 5, 'y': 1}, {'x': 4, 'y': 1},
-         {'x': 9, 'y': 1}],'length': 14,}
+         {'x': 9, 'y': 1}]}
 
         test_snakes =[
         {'id': 'gs_pPXPVBSS3bPWcfDX9vchP49b',
-        'body': [{'x': 6, 'y': 1},{'x': 5, 'y': 1}, {'x': 4, 'y': 1}],
-         'length': 3,},
+        'body': [{'x': 6, 'y': 1},{'x': 5, 'y': 1}, {'x': 4, 'y': 1}]},
          
          {'id': 'gs_XXcDWBMbV8wgS3BwwJ9hxQC4',
-         'body': [{'x': 7, 'y': 2}, {'x': 7, 'y': 1}, {'x': 7, 'y': 0}, {'x': 8, 'y': 0}],
-         'length': 4}]
+         'body': [{'x': 7, 'y': 2}, {'x': 7, 'y': 1}, {'x': 7, 'y': 0}, {'x': 8, 'y': 0}]}]
 
         expected = ["up","down","left"]
         # Act
@@ -200,16 +194,14 @@ class AvoidOthersTest(unittest.TestCase):
         # Arrange 
         test_my_snake = {'id': 'gs_pPXPVBSS3bPWcfDX9vchP49b',
         'body': [{'x': 6, 'y': 1},{'x': 7, 'y': 1}, {'x': 8, 'y': 1},
-         {'x': 9, 'y': 1}],'length': 14,}
+         {'x': 9, 'y': 1}]}
 
         test_snakes =[
         {'id': 'gs_pPXPVBSS3bPWcfDX9vchP49b',
-        'body': [{'x': 6, 'y': 1},{'x': 7, 'y': 1}, {'x': 8, 'y': 1}],
-         'length': 3,},
+        'body': [{'x': 6, 'y': 1},{'x': 7, 'y': 1}, {'x': 8, 'y': 1}]},
          
          {'id': 'gs_XXcDWBMbV8wgS3BwwJ9hxQC4',
-         'body': [{'x': 5, 'y': 2}, {'x': 6, 'y': 2}, {'x': 7, 'y': 2},{'x': 8, 'y': 2}],
-         'length': 4}]
+         'body': [{'x': 5, 'y': 2}, {'x': 6, 'y': 2}, {'x': 7, 'y': 2},{'x': 8, 'y': 2}]}]
 
         expected = ["down","left","right"]
         # Act
@@ -222,16 +214,14 @@ class AvoidOthersTest(unittest.TestCase):
         # Arrange 
         test_my_snake = {'id': 'gs_pPXPVBSS3bPWcfDX9vchP49b',
         'body': [{'x': 6, 'y': 1},{'x': 7, 'y': 1}, {'x': 8, 'y': 1},
-         {'x': 9, 'y': 1}],'length': 14,}
+         {'x': 9, 'y': 1}]}
 
         test_snakes =[
         {'id': 'gs_pPXPVBSS3bPWcfDX9vchP49b',
-        'body': [{'x': 6, 'y': 1},{'x': 7, 'y': 1}, {'x': 8, 'y': 1}],
-         'length': 3,},
+        'body': [{'x': 6, 'y': 1},{'x': 7, 'y': 1}, {'x': 8, 'y': 1}]},
          
          {'id': 'gs_XXcDWBMbV8wgS3BwwJ9hxQC4',
-         'body': [{'x': 5, 'y': 0}, {'x': 6, 'y': 0}, {'x': 7, 'y': 0},{'x': 8, 'y': 0}],
-         'length': 4}]
+         'body': [{'x': 5, 'y': 0}, {'x': 6, 'y': 0}, {'x': 7, 'y': 0},{'x': 8, 'y': 0}]}]
 
         expected = ["up","left","right"]
         # Act
@@ -240,6 +230,85 @@ class AvoidOthersTest(unittest.TestCase):
         self.assertEqual(len(result_moves), 3)
         self.assertEqual(expected, result_moves)  
 
+    def test_avoid_others_chase_tail_left(self):
+        # Arrange 
+        test_my_snake = {'id': 'gs_pPXPVBSS3bPWcfDX9vchP49b',
+        'body': [{'x': 6, 'y': 1},{'x': 7, 'y': 1}, {'x': 8, 'y': 1},
+         {'x': 9, 'y': 1}]}
+
+        test_snakes =[
+        {'id': 'gs_pPXPVBSS3bPWcfDX9vchP49b',
+        'body': [{'x': 6, 'y': 1},{'x': 7, 'y': 1}, {'x': 8, 'y': 1}]},
+         
+         {'id': 'gs_XXcDWBMbV8wgS3BwwJ9hxQC4',
+         'body': [{'x': 5, 'y': 2}, {'x': 5, 'y': 1}]}]
+
+        expected = ["up","down","left","right"]
+        # Act
+        result_moves = logic._avoid_others(test_my_snake,self.possible_moves,test_snakes)
+        # Assert
+        self.assertEqual(len(result_moves), 4)
+        self.assertEqual(expected, result_moves)
+
+    def test_avoid_others_chase_tail_right(self):
+        # Arrange 
+        test_my_snake = {'id': 'gs_pPXPVBSS3bPWcfDX9vchP49b',
+        'body': [{'x': 6, 'y': 1},{'x': 5, 'y': 1}, {'x': 4, 'y': 1},
+         {'x': 9, 'y': 1}],'length': 14,}
+
+        test_snakes =[
+        {'id': 'gs_pPXPVBSS3bPWcfDX9vchP49b',
+        'body': [{'x': 6, 'y': 1},{'x': 5, 'y': 1}, {'x': 4, 'y': 1}]},
+         
+         {'id': 'gs_XXcDWBMbV8wgS3BwwJ9hxQC4',
+         'body': [{'x': 7, 'y': 2}, {'x': 7, 'y': 1}]}]
+
+        expected = ["up","down","left","right"]
+        # Act
+        result_moves = logic._avoid_others(test_my_snake,self.possible_moves,test_snakes)
+        # Assert
+        self.assertEqual(len(result_moves), 4)
+        self.assertEqual(expected, result_moves)
+
+    def test_avoid_others_chase_tail_up(self):
+        # Arrange 
+        test_my_snake = {'id': 'gs_pPXPVBSS3bPWcfDX9vchP49b',
+        'body': [{'x': 6, 'y': 1},{'x': 7, 'y': 1}, {'x': 8, 'y': 1},
+         {'x': 9, 'y': 1}]}
+
+        test_snakes =[
+        {'id': 'gs_pPXPVBSS3bPWcfDX9vchP49b',
+        'body': [{'x': 6, 'y': 1},{'x': 7, 'y': 1}, {'x': 8, 'y': 1}]},
+         
+         {'id': 'gs_XXcDWBMbV8wgS3BwwJ9hxQC4',
+         'body': [{'x': 5, 'y': 2}, {'x': 6, 'y': 2}]}]
+
+        expected = ["up","down","left","right"]
+        # Act
+        result_moves = logic._avoid_others(test_my_snake,self.possible_moves,test_snakes)
+        # Assert
+        self.assertEqual(len(result_moves), 4)
+        self.assertEqual(expected, result_moves)
+
+    def test_avoid_others_chase_tail_down(self):
+        # Arrange 
+        test_my_snake = {'id': 'gs_pPXPVBSS3bPWcfDX9vchP49b',
+        'body': [{'x': 6, 'y': 1},{'x': 7, 'y': 1}, {'x': 8, 'y': 1},
+         {'x': 9, 'y': 1}]}
+
+        test_snakes =[
+        {'id': 'gs_pPXPVBSS3bPWcfDX9vchP49b',
+        'body': [{'x': 6, 'y': 1},{'x': 7, 'y': 1}, {'x': 8, 'y': 1}],},
+         
+         {'id': 'gs_XXcDWBMbV8wgS3BwwJ9hxQC4',
+         'body': [{'x': 5, 'y': 0}, {'x': 6, 'y': 0}]}]
+
+        expected = ["up","down","left","right"]
+        # Act
+        result_moves = logic._avoid_others(test_my_snake,self.possible_moves,test_snakes)
+        # Assert
+        self.assertEqual(len(result_moves), 4)
+        self.assertEqual(expected, result_moves)  
 
 
 class AvoidHazardsTest(unittest.TestCase):
