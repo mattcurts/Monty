@@ -1,3 +1,4 @@
+from queue import PriorityQueue
 import random
 from turtle import up
 from typing import List, Dict
@@ -51,7 +52,7 @@ def choose_move(data: dict) -> str:
     length = len(my_snake["body"])
     possible_moves = ["up", "down", "left", "right"]
     possible_moves = avoid_hazards(my_head, board, possible_moves)
-    #possible_moves = _avoid_walls(my_head, possible_moves, board_height, board_width)
+    possible_moves = _avoid_walls(my_head, possible_moves, board_height, board_width)
 
     possible_moves = _avoid_self(my_body, possible_moves)
 
@@ -82,6 +83,9 @@ def choose_move(data: dict) -> str:
     )
 
     return move
+
+
+
 
 
 def move_fail(my_body, my_head, snakes, board, my_id, length):
@@ -175,16 +179,8 @@ def avoid_self_trap(board, x, y, my_size, my_body, my_id, length):
                 queue.append((x, y - 1))
 
     if free_spaces > (length):
-        print("CHECK PASSED")
-        # print(counted)
-        print(free_spaces)
-        print(my_size)
         return True
     else:
-        print("CHECK FAILED")
-        # print(counted)
-        print(free_spaces)
-        print(my_size)
         return False
 
 

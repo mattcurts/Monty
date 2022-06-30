@@ -10,11 +10,13 @@ in the folder where this file exists:
     python src/tests.py -v
 
 """
+from ast import Assert
 from lib2to3.pgen2.tokenize import untokenize
 import unittest
 from unittest import result
 
 import logic
+
 
 class AvoidSelfTest(unittest.TestCase):
     def setUp(self) -> None:
